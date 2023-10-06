@@ -63,7 +63,7 @@ source=9.67.116.98:8000] ceased
 03/22 08:54:53 INFO   :......dreg_process: attempt to dereg (ifaeddrg_byaddr)
 03/22 08:54:53 INFO   :......dreg_process: rc from ifaeddrg_byaddr  rc =0
 03/22 08:54:53 INFO   :.....terminator: process terminated with exit code 0
-`
+`;
 
 // Penulisan Kode program di buka melalui folder HW7 -> 
 // sehingga penulisan path pada write/read file harus masuk melalui folder case2
@@ -72,12 +72,10 @@ source=9.67.116.98:8000] ceased
 fs.writeFile('./case2/log.txt', logData, (error) => {
     if (error) throw error;
     console.log('Data Log berhasil ditulis\n');
-})
+});
 
 // Untuk membaca file log.txt
 fs.readFile('./case2/log.txt', 'utf-8', (error, data) => {
-    if (error) {
-        console.log(error);
-    }
+    if (error) console.log(error);
     console.log('Data Log berhasil dibaca ' + data);
 });
