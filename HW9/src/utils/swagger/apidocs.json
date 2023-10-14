@@ -1,0 +1,559 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Express Postgresql API with JWT using Swagger",
+        "version": "1.0.0",
+        "description": "This is a simple CRUD API application made with Express, Postgresql and documented with Swagger",
+        "contact": {
+            "name": "Aswangga Bhanu Rizqullah",
+            "url": "https://github.com/bhanurzh",
+            "email": "aswanggab@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000/",
+            "description": "localhost"
+        }
+    ],
+    "tags":
+    [
+        {
+            "name": "Users",
+            "description": "The User managing API"
+        },
+        {
+            "name": "Movies",
+            "description": "The Country managing API"
+        }
+    ],
+    "paths":{
+        "/api/v1/auth/register":{
+            "post":{
+                "tags":[
+                    "Users"
+                ],
+                "summary": "Create user data",
+                "comsumes":[
+                    "application/json"
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/Users/examples/example1"
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Data Successfully Created"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login":{
+            "post":{
+                "tags":[
+                    "Users"
+                ],
+                "summary": "Login users",
+                "comsumes":[
+                    "application/json"
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "example":{
+                                    "email": "aswanggab@gmail.com",
+                                    "password": "qwerty"
+                                }   
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Login Success"
+                    }
+                }
+            }
+        },
+        "/api/v1/users":{
+            "get":{
+                "tags":[
+                    "Users"
+                ],
+                "summary": "Get all user",
+                "description": "Get users data",
+                "parameters":[
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "description": "Page u want"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "description": "Limit content that show up"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully getting users data",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "$ref": "#/components/schemas/Users/examples/example1"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Some server error"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/{id}":{
+            "get":{
+                "tags":[
+                    "Users"
+                ],
+                "summary": "Get User by Id",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "User id"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully getting user data by id",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Users/examples/example1"
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "500":{
+                        "description":"Some server error"
+                    }
+                }
+            },
+            "put":{
+                "tags":[
+                    "Users"
+                ],
+                "summary":"Update User by Id",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "User id"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "example":{
+                                    "email": "aswanggab@gmail.com",
+                                    "gender": "Male",
+                                    "password": "qwerty",
+                                    "role": "Software Engineer"
+                                }   
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "User Successfully Updated"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "500":{
+                        "description": "Some server error"
+                    }
+                }
+            },
+            "delete":{
+                "tags":[
+                    "Users"
+                ],
+                "summary":"Delete User by Id",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "User id"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "User Successfully Deleted"
+                    },
+                    "404":{
+                        "description": "User not found"
+                    },
+                    "500":{
+                        "description": "Some server error"
+                    }
+                }
+            }
+        },
+        "/api/v1/movies":{
+            "get": {
+                "tags": ["Movies"],
+                "summary": "Get all movie",
+                "description": "Get movies data",
+                "parameters":[
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "description": "Page u want"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "description": "Limit content that show up"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully getting movies data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Movie/examples/example1"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Some server error"
+                    }
+                }
+            },
+            "post":{
+                "tags":[
+                    "Movies"
+                ],
+                "summary": "Add movie data",
+                "comsumes":[
+                    "application/json"
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content":{
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/components/schemas/Movie/examples/example1"
+                            }
+                        }
+                    }
+                },
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description": "Data Successfully Added",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "example":{
+                                        "message": "Movie Successfully Added",
+                                        "data":{
+                                            "id": 1,
+                                            "title": "Top Gun Maverick",
+                                            "genres": "Action|Drama",
+                                            "year": "2022"
+                                        }
+                                    }   
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/movies/{id}":{
+            "get":{
+                "tags":[
+                    "Movies"
+                ],
+                "summary": "Get Movie by Id",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Movie id"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully getting movie data by id",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Movie/examples/example1"
+                                }
+                            }
+                        }
+                    },
+                    "404":{
+                        "description": "Movie not found"
+                    },
+                    "500":{
+                        "description":"Some server error"
+                    }
+                }
+            },
+            "put":{
+                "tags":[
+                    "Movies"
+                ],
+                "summary": "Update Movie by Id",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Movie id"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "example":{
+                                    "title": "Top Gun Maverick",
+                                    "genres": "Action|Drama",
+                                    "year": "2022"
+                                }   
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "Movie Successfully Updated"
+                    },
+                    "404":{
+                        "description": "Movie not found"
+                    },
+                    "500":{
+                        "description": "Some server error"
+                    }
+                }
+            },
+            "delete":{
+                "tags":[
+                    "Movies"
+                ],
+                "summary": "Delete Movie by Id",
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema":{
+                            "type": "integer"
+                        },
+                        "required": true,
+                        "description": "Movie id"
+                    }
+                ],
+                "security":[
+                    {
+                        "BearerToken": []
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Movie Successfully Deleted"
+                    },
+                    "404":{
+                        "description": "Movie not found"
+                    },
+                    "500":{
+                        "description": "Some server error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes":{
+            "BearerToken":{
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "Users":{
+                "type": "object",
+                "required":[
+                    "id",
+                    "email",
+                    "gender",
+                    "password",
+                    "role"
+                ],
+                "properties":{
+                    "id":{
+                        "type": "integer"
+                    },
+                    "email":{
+                        "type": "string"
+                    },
+                    "gender":{
+                        "type": "string"
+                    },
+                    "password":{
+                        "type": "string",
+                        "format": "password"
+                    },
+                    "role":{
+                        "type": "string"
+                    }
+                },
+                "examples":{
+                    "example1":{
+                        "type": "object",
+                        "example":{
+                            "id": 101,
+                            "email": "aswanggab@gmail.com",
+                            "gender": "Male",
+                            "password": "qwerty",
+                            "role": "Software Engineer"
+                        }
+                    }
+                }
+            },
+            "Movie": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "title",
+                    "genres",
+                    "year"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "genres": {
+                        "type": "string"
+                    },
+                    "year": {
+                        "type": "string"
+                    }
+                },
+                "examples":{
+                    "example1":{
+                        "type": "object",
+                        "example":{
+                            "id": 1,
+                            "title": "Top Gun Maverick",
+                            "genres": "Action|Drama",
+                            "year": "2022"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
