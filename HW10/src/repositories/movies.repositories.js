@@ -53,7 +53,7 @@ async function deleteMovie(id) {
             throw new Error('Movie not found');
         }
 
-        const photoPath = `C:\\Users\\aswan\\Documents\\Rakamin\\HomeWork\\HW10\\public\\uploads\\${movie.photo}`;
+        const photoPath = `C:\\Users\\aswan\\Documents\\Rakamin\\HomeWork\\HW10\\uploads\\${movie.photo}`;
 
         fs.unlink(photoPath, (err) => {
             if (err) {
