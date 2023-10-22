@@ -1,6 +1,5 @@
 const createServer = require('./server');
 const { PORT } = require('./config');
-const pool = require('./utils/database/configdb');
 
 function startServer() {
     const app = createServer();

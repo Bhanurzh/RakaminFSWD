@@ -10,16 +10,24 @@ router
     .get([validate(requirements.getMovies)], moviesControllers.getMovies);
 
 router
-    .route('/:id')
-    .get([validate(requirements.getMovieById)], moviesControllers.getMovieById);
+    .route('/add')
+    .get(moviesControllers.addMovieForm);
 
 router
     .route('/')
     .post(multerMiddleware, [validate(requirements.createMovie)], moviesControllers.addMovie);
 
 router
+    .route('/edit/:id')
+    .get(moviesControllers.editMovieForm);
+
+router
     .route('/:id')
     .put(multerMiddleware, [validate(requirements.updateMovie)], moviesControllers.updateMovie);
+
+router
+    .route('/:id')
+    .get([validate(requirements.getMovieById)], moviesControllers.getMovieById);
 
 router
     .route('/:id')

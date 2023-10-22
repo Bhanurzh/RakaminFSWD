@@ -7,7 +7,7 @@ const generateToken = (email) => {
         { email },
         'saya_sudah_pusing_sama_jwt',
         {
-            expiresIn: "12h",
+            expiresIn: "3h",
         }
     );
 

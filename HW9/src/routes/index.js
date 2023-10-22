@@ -16,9 +16,7 @@ router.post('/auth/register', async (req, res) => {
         }
         await usersServices.createUser({ id: parseInt(id), email, gender, password, role });
 
-        const token = jwtUtil.generateToken(email);
-
-        res.status(200).json({ token });
+        res.status(200).json({ message: "Register Sukses" });
     } catch (error) {
         res.status(500).json({ error: 'Registration failed' });
     }

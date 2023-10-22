@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const { Movie } = require('../models');
 
 async function getMovies({ page, limit }) {
@@ -10,7 +11,9 @@ async function getMovies({ page, limit }) {
 }
 
 async function getMovieById(id) {
-    return Movie.findByPk(id);
+    return Movie.findByPk(id, {
+        attributes: ['id', 'title', 'genres', 'year', 'photo'],
+    });
 }
 
 async function addMovie({ title, genres, year, photo }) {
@@ -50,7 +53,7 @@ async function deleteMovie(id) {
             throw new Error('Movie not found');
         }
 
-        const photoPath = movie.photo;
+        const photoPath = `C:\\Users\\aswan\\Documents\\Rakamin\\HomeWork\\HW10\\public\\uploads\\${movie.photo}`;
 
         fs.unlink(photoPath, (err) => {
             if (err) {
