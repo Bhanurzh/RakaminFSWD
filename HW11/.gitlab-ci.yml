@@ -1,0 +1,34 @@
+image: node:18.18-alpine
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - npm install
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+
+unit-test:
+  stage: test
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  dependencies:
+    - build
+  script:
+    - npm run test:ci
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
