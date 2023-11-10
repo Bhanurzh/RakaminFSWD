@@ -97,10 +97,10 @@ export default function Game() {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
         <button className="m-3 py-1 px-4 bg-red-500 text-white rounded-lg hover:bg-red-400" onClick={resetGame}>Reset</button>
       </div>
-      <div className="font-medium bg-gray-600 p-3 rounded-md">
+      {/* <div className="font-medium bg-gray-600 p-3 rounded-md">
         <h3 className="text-xl font-medium text-white">Rewind Moves</h3>
         <ol>{moves}</ol>
-      </div>
+      </div> */}
     </div>
   );
 }
